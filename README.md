@@ -2,6 +2,9 @@
 
 Bu proje; klasik dedektiflik oyun mekaniklerini, modern web teknolojileri ve dinamik bir mantık mimarisiyle birleştiren interaktif bir senaryo yönetim sistemidir. Yazılımın temel amacı, statik bir oyun deneyimi yerine, veriler arası ilişki kurabilen ve kullanıcı kararlarına göre şekillenen bir "Zihin Sarayı" simülasyonu sunmaktır.
 
+### Websitemize aşağıdaki linkten ulaşabilirsiniz
+https://sinemceng.github.io/logic_engine_website/
+
 ## Ekip Çalışması ve Liderlik
 Bu proje, bir ekip çalışması ürünü olarak geliştirilmiştir. **Ekip Lideri** olarak, projenin en başından sonuna kadar teknik mimarinin kurgulanması, görev koordinasyonunun sağlanması ve ana mantık çekirdeğinin (Logic Core) geliştirilmesi süreçlerini yönettim. Projenin başarısı, ekip içerisindeki iş birliğinin teknik vizyonla birleştirilmesine dayanmaktadır.
 
