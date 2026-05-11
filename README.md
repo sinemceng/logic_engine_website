@@ -1,4 +1,4 @@
-# Sherlock Holmes: Logic Enginee
+# Sherlock Holmes: Logic Engine
 
 Bu proje; klasik dedektiflik oyun mekaniklerini, modern web teknolojileri ve dinamik bir mantık mimarisiyle birleştiren interaktif bir senaryo yönetim sistemidir. Yazılımın temel amacı, statik bir oyun deneyimi yerine, veriler arası ilişki kurabilen ve kullanıcı kararlarına göre şekillenen bir "Zihin Sarayı" simülasyonu sunmaktır.
 
