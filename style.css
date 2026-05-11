@@ -1,0 +1,945 @@
+/* Projede kullanacağım renkleri ve değişkenleri burada tanımladım */
+:root {
+    --lila: #fbf6fb;
+    --dark-bg: #050505;
+    --mor-box: rgba(46, 12, 71, 0.9);
+}
+
+/* Sayfadaki her şeyin kenar boşluklarını sıfırlıyorum ki kayma olmasın */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Tüm sayfanın arka plan rengi ve genel yazı tipi ayarları */
+body { 
+    background-color: #0d0914; 
+    color: #e0d6e8; 
+    font-family: 'Courier New', monospace; 
+    overflow: hidden; 
+}
+
+/* Oyuna ilk girişteki tam ekran açılış sayfası */
+#splash-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, #8c31aa 0%, #000 100%);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+    transition: opacity 0.8s ease-in-out;
+}
+
+/* Ana başlıktaki lila parlama efekti */
+.glow-text {
+    color: var(--lila);
+    font-size: 5.3rem;
+    text-shadow: 0 0 10px rgba(239, 228, 239, 0.3);
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+/* Başlığın altındaki daktilo yazısı gibi duran alt metin */
+.typewriter-sub {
+    color: var(--lila); 
+    font-size:2.5rem; 
+    text-align: center;
+    text-shadow: 0 0 10px rgba(239, 228, 239, 0.2);
+    margin-top: 15px;
+    letter-spacing: 1px;
+}
+
+/* Oyun içindeki genel lila buton tasarımım */
+.lila-button {
+    background: transparent;
+    border: 2.2px solid var(--lila);
+    color: var(--lila);
+    border-radius: 18px; 
+    padding: 20px 50px; 
+    font-size: 4.0rem; 
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+/* Butonun üzerine gelince içi doluyor ve parlıyor */
+.lila-button:hover {
+    background: var(--lila);
+    color: black;
+    box-shadow: 0 0 30px var(--lila);
+    transform: scale(1.05);
+}
+
+/* Kuralların yazdığı mor bilgi ekranının arka planı */
+#info-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(20, 10, 30, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 2000;
+    transition: opacity 0.8s ease-in-out;
+    overflow-y: auto !important; 
+    overflow-x: hidden;          
+    height: 100vh;               
+    align-items: flex-start !important; 
+    padding-top: 40px !important;       
+    padding-bottom: 60px !important;  
+}
+
+/* Bilgi ekranındaki kutuları ortalayıp yan yana dizen div */
+.info-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 2px;
+    max-width: 1500px !important;
+    padding: 10px;
+}
+
+/* Anladım butonunun konumu ve boyut ayarları */
+#back-to-menu-btn {
+    flex-basis: 40%;
+    padding: 10px 40px;
+    font-size: 1.2rem;
+    border-radius: 18px;
+    align-self: center !important;
+    width: fit-content;  
+    margin: 10px auto 0 auto; 
+}
+
+/* Mor kutuların yavaşça parlayıp sönmesini sağlayan animasyon */
+@keyframes neonGlow {
+    0% { box-shadow: 0 0 15px rgba(200, 162, 200, 0.4), inset 0 0 10px rgba(200, 162, 200, 0.1); }
+    50% { box-shadow: 0 0 30px rgba(162, 40, 255, 0.6), inset 0 0 15px rgba(162, 40, 255, 0.2); }
+    100% { box-shadow: 0 0 15px rgba(200, 162, 200, 0.4), inset 0 0 10px rgba(200, 162, 200, 0.1); }
+}
+
+/* İçinde kuralların ve Sherlock'un yazdığı mor kutular */
+.info-box {
+    background: var(--mor-box);
+    border: 2px solid var(--lila);
+    padding: 10px;
+    border-radius: 20px;
+    width: 650px; 
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    animation: neonGlow 3s infinite alternate; 
+}
+
+/* Sherlock bilgisinin olduğu sol kutunun iç düzeni */
+#about-sherlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+
+/* Paragrafların ilk satırını biraz içeriden başlatmak için ekledim */
+.indent {
+    text-indent: 20px;
+}
+
+/* Sherlock hakkındaki yazıların özellikleri */
+#about-sherlock p {
+    line-height: 2.0;
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Sherlock'un yuvarlak resim çerçevesi */
+.avatar-container {
+    position: relative;
+    margin: auto auto 10px auto; 
+    width: 140px;  
+    height: 140px; 
+    border-radius: 50%;
+    border: 4px solid #8e44ad; 
+    overflow: hidden;
+    background: #2a2a2a;
+    box-shadow: 0 0 20px rgba(142, 68, 173, 0.5); 
+}
+
+/* Çerçevenin içindeki Sherlock resmi tam sığsın diye */
+.sherlock-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+/* Kutuların içine koyduğum diğer resimler için ayar */
+.box-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 12px; 
+    margin: 15px 0;
+    border: none; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); 
+    display: block;
+}
+
+/* Bilgi kutularının başlık kısımları */
+.info-box h3 { 
+    color: var(--lila); 
+    margin-bottom: 20px; 
+    font-size: 1.8rem;
+    text-align: center;
+    border-bottom: 2px solid rgba(200, 162, 200, 0.3);
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+/* Kural maddelerinin üzerine gelince hafif sağa kayması */
+#game-rules li:hover {
+    background: rgba(142, 68, 173, 0.2);
+    transform: translateX(10px); 
+}
+
+/* Oyun kurallarının yazdığı listedeki her bir madde */
+#game-rules li {
+    color: #ffffff;
+    font-size: 1.0rem;
+    font-weight: bold;
+    background: rgba(255, 255, 255, 0.05);
+    margin: 10px 0;
+    padding: 12px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border-left: 4px solid #8e44ad; 
+    font-weight: bold;
+}
+
+/* Oyun ana ekranındaki üst menü çubuğu */
+#top-bar {
+    width: 100%;
+    height: 100px;
+    background: #0f0816;
+    border-bottom: 3px solid #3a1c5e;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    padding: 0 30px;
+    z-index: 9999;
+    gap: 20px; 
+}
+
+/* Üst bardaki küçük Sherlock resmi */
+#top-bar-sherlock {
+    height: 95px; 
+    width: auto; 
+    border: none;
+    outline: none;
+    background: transparent;
+    margin-left: auto;
+}
+
+/* Müzik butonu ve resmi yan yana tutan div */
+.sherlock-avatar-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+}
+
+/* Sesi açıp kapatan lila buton */
+.mute-btn {
+    background: rgba(200, 162, 200, 0.15); 
+    border: 2px solid #c8a2c8;             
+    border-radius: 50%;                    
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(200, 162, 200, 0.3); 
+}
+
+/* Ses butonunun üzerine fareyle gelinceki hali */
+.mute-btn:hover {
+    background: #c8a2c8; 
+    transform: scale(1.1); 
+}
+
+/* Gizli eşyaların odada durduğu katman */
+#object-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50; 
+}
+
+/* Tıklanabilen gizli eşyalar (arka planları saydam) */
+.collectible-item {
+    position: absolute;
+    cursor: pointer;
+    background: transparent; 
+    border: none;
+    z-index: 60; 
+    border-radius: 60%;
+}
+
+/* Üstteki soru işareti ve dosya ikonlarının stili */
+#help-icon ,#story-icon{
+    font-size: 2.2rem; 
+    color: var(--lila); 
+    cursor: pointer;
+    transition: 0.3s; 
+    padding: 5px 15px; 
+    border-radius: 50%;
+    margin-right: 20px; 
+}
+
+/* İkonların üzerine gelince parlayıp büyümesi */
+#help-icon:hover, #story-icon:hover{ 
+    transform: scale(1.2); 
+    text-shadow: 0 0 10px var(--lila); 
+}
+
+/* Envanter kutucuklarını yan yana dizen alan */
+#slot-container {
+    display: flex;
+    flex-direction: row; 
+    gap: 12px; 
+    align-items: center;
+    flex-wrap: nowrap; 
+}
+
+/* Envanterdeki her bir boş eşya kutusu */
+.slot { 
+    width: 60px; 
+    height: 60px; 
+    border: 2px dashed #3a1c5e; 
+    border-radius: 8px; 
+    background: rgba(58, 28, 94, 0.1); 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-size: 2rem;
+}
+
+/* Eşya bulununca kutunun içinin dolu hali */
+.slot.filled { 
+    border: 2px solid var(--lila); 
+    box-shadow: 0 0 10px var(--lila); 
+}
+
+/* Eşya sayacının (örn. 0/10) tasarımı */
+#clue-count {
+    color: var(--lila);
+    font-size: 1.6rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(221, 160, 221, 0.6);
+    min-width: 65px; 
+    text-align: right;
+}
+
+/* Oda ve zihin sarayını tutan ana oyun kapsayıcısı */
+#game-container { display: flex; flex: 1; height: calc(100vh - 100px); }
+
+/* Sadece oda resminin olduğu sol kısım */
+#room-container { flex: 1; position: relative; background: #000; overflow: hidden; }
+
+/* Odanın arka plan görseli */
+#bg-image { max-height: 85vh; width: auto; pointer-events: none; }
+
+/* El feneri ışık efekti için kullandığım katman */
+#spotlight-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 40;
+}
+
+/* Sağ taraftaki karanlık zihin sarayı paneli */
+#deduction-panel {
+    width: 400px; background: #0f0816; border-left: 2px solid #3a1c5e;
+    padding: 20px; display: flex; flex-direction: column;
+}
+
+/* Birleştirmek için eşyaya tıklayınca etrafında çıkan parlama */
+.slot.selected {
+    border: 3px solid #ff00ff; 
+    box-shadow: 0 0 20px #ff00ff, inset 0 0 15px rgba(255, 0, 255, 0.5);
+    transform: scale(1.25) translateY(-5px); 
+    z-index: 100; 
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* İpuçlarını birleştirme butonunun tasarımı */
+#btn-combine {
+    background: transparent;
+    color: var(--lila);
+    border: 2px dashed var(--lila);
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: 10px auto 5px auto !important;
+    display: block;
+    transition: all 0.3s;
+}
+
+/* İpuçlarını birleştir butonunun üzerine gelinceki hali */
+#btn-combine:hover {
+    background: rgba(221, 160, 221, 0.2);
+    box-shadow: 0 0 15px var(--lila);
+}
+
+/* Dolu kutuların neon gibi yanıp sönmesini sağlayan keyframe */
+@keyframes rgbGlow {
+    0% { box-shadow: 0 0 10px #c8a2c8, 0 0 20px #650f96; border-color: #c8a2c8; }
+    50% { box-shadow: 0 0 20px #ff00ff, 0 0 30px #c8a2c8; border-color: #ff00ff; }
+    100% { box-shadow: 0 0 10px #c8a2c8, 0 0 20px #650f96; border-color: #c8a2c8; }
+}
+
+/* Bulunan eşyaların kutusuna animasyonu ekledim */
+.slot.filled {
+    border: 2px solid var(--lila);
+    animation: rgbGlow 2s infinite alternate; 
+}
+
+/* Yanlış eşya birleştirince ekranda çıkan kırmızı hata mesajı */
+#game-toast {
+    position: fixed;
+    bottom: 150px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(200, 113, 113, 0.359);
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    padding: 10px 25px;
+    border-radius: 20px;
+    font-weight: bold;
+    z-index: 5000;
+    transition: opacity 0.3s;
+}
+
+/* Vakayı çöz butonunun tıklanamayan pasif hali */
+#btn-deduce {
+    background: rgba(20, 10, 30, 0.5); 
+    color: #555; 
+    border: 2px solid #3a1c5e; 
+    padding: 5px 40px;
+    font-size: 1.5rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    border-radius: 50px; 
+    cursor: not-allowed; 
+    margin: 5px auto 10px auto !important; 
+    display: block;
+    transition: all 0.4s ease;
+}
+
+/* Tüm kanıtlar bulunduğunda vakayı çöz butonunun aktif rengi */
+#btn-deduce:not(:disabled) {
+    background: transparent;
+    color: var(--lila);
+    border: 2px solid var(--lila);
+    cursor: pointer;
+    animation: deducePulse 1.5s infinite alternate; 
+}
+
+/* Aktif olan vakayı çöz butonunun üzerine fareyle gelince */
+#btn-deduce:not(:disabled):hover {
+    background: var(--lila);
+    color: #000;
+    transform: scale(1.08) translateY(-3px); 
+    box-shadow: 0 0 40px var(--lila), inset 0 0 10px rgba(0,0,0,0.5);
+    animation: none; 
+}
+
+/* Vakayı çöz butonunun kalp atışı gibi nefes alma animasyonu */
+@keyframes deducePulse {
+    0% { 
+        box-shadow: 0 0 10px rgba(200, 162, 200, 0.2); 
+        text-shadow: 0 0 5px rgba(200, 162, 200, 0.5); 
+    }
+    100% { 
+        box-shadow: 0 0 25px var(--lila); 
+        text-shadow: 0 0 15px var(--lila); 
+    }
+}
+
+/* Zihin Sarayı paneli ana başlığı */
+#deduction-panel h2 {
+    color: var(--lila);
+    font-size: 2.2rem;
+    text-align: center;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-transform: uppercase; 
+    letter-spacing: 4px; 
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px dashed rgba(221, 160, 221, 0.4); 
+    text-shadow: 0 0 15px rgba(221, 160, 221, 0.7); 
+}
+
+/* Sherlock'un daktilodan çıkmış gibi duran yazıları */
+#typewriter-text {
+    color: #e0d6e8;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    line-height: 1.6;
+    min-height: 80px; 
+    text-shadow: 0 0 5px rgba(221, 160, 221, 0.3);
+}
+
+/* Bulduğumuz ipuçlarının eklendiği alt alta giden liste */
+#deductions-list {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    flex: 1; 
+}
+
+/* Listeye eklenen her bir çıkarım maddesi */
+#deductions-list li {
+    background: rgba(221, 160, 221, 0.05); 
+    border: 1px solid rgba(221, 160, 221, 0.2); 
+    color: #fff;
+    font-size: 1.0rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Listedeki maddelerin üzerine gelince hafif parlaması */
+#deductions-list li:hover {
+    background: rgba(221, 160, 221, 0.15); 
+    border-color: var(--lila); 
+    box-shadow: 0 0 10px rgba(221, 160, 221, 0.4); 
+}
+
+/* Vaka dosyası açılır penceresinin tasarımı */
+.file-theme {
+    width: 90% !important; 
+    max-width: 1200px !important; 
+    padding: 15px 30px;
+    padding-top: 10px !important; 
+    max-height: 95vh; 
+    overflow-y: auto; 
+    background: radial-gradient(circle, #2e0c47 0%, #0d0816 100%) !important;
+}
+
+/* Vaka dosyasının başlık kısmı */
+.file-title {
+    font-size: 3.5rem !important; 
+    border-bottom: 2px dashed rgba(221, 160, 221, 0.85);
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    text-align: center; 
+}
+
+/* Dosyanın içindeki okunacak metinler ve kaydırma ayarı */
+.file-text{
+    text-align: left;
+    font-size: 1.5rem; 
+    line-height: 1.6;
+    color: #e0d6e8;
+    font-family: 'Courier New', monospace;
+    max-height: 40vh;    
+    overflow-y: auto;    
+    overflow-x: hidden;  
+    padding-right: 15px; 
+    margin-bottom: 20px;
+}
+
+/* Dosya içindeki madde imli listenin boşlukları */
+.file-text ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 15px 0; 
+}
+
+/* Dosyadaki her bir bilgi maddesi */
+.file-text li {
+    background: rgba(221, 160, 221, 0.05);
+    border-left: 4px solid var(--lila); 
+    font-weight: bold;
+    padding: 15px 20px; 
+    margin-bottom: 15px; 
+    border-radius: 0 8px 8px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Dosyada koyu (bold) yazılmış kelimelerin parlaması */
+.file-text b {
+    color: #fff;
+    text-shadow: 0 0 5px rgba(221, 160, 221, 0.5); 
+}
+
+/* Dosyanın en altındaki yönlendirme metni */
+.file-directive {
+    color: var(--lila);
+    text-align: center;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+/* Uyarı ve dosya ekranlarındaki küçük butonlar */
+.modal-btn {
+    font-size: 1.3rem !important;
+    padding: 12px 35px !important;
+    margin-top: 15px !important;
+}
+
+/* Oyun bittiğinde veya dosya açılınca arkadaki odayı buzlu cam yapan siyahlık */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, rgba(62, 11, 92, 0.95) 0%, rgba(0, 0, 0, 0.98) 100%);
+    z-index: 5000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px); 
+}
+
+/* Modalın (ortadaki açılır kutunun) ana ayarları */
+.modal-content {
+    background: #0d0816;
+    padding: 50px;
+    border: 3px double var(--lila); 
+    border-radius: 20px;
+    text-align: center;
+    width: 650px;
+    max-width: 90%;
+    box-shadow: 0 0 50px rgba(200, 162, 200, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Final ekranı başlığı */
+.modal-content h2 {
+    font-size: 3.5rem;
+    color: var(--lila);
+    margin-bottom: 25px;
+    text-shadow: 0 0 15px var(--lila);
+    letter-spacing: 3px;
+}
+
+/* Vakayı çözünce çıkan oyun sonu yazısı */
+#final-story {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.8;
+    color: #e0d6e8;
+    margin-bottom: 35px;
+    min-height: 100px;
+    font-family: 'Courier New', monospace;
+}
+
+/* En sondaki tekrar oyna butonu */
+#btn-restart {
+    background: transparent;
+    border: 2px solid var(--lila);
+    color: var(--lila);
+    padding: 15px 40px;
+    font-size: 1.4rem;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50px; 
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    text-transform: uppercase;
+    box-shadow: 0 0 10px rgba(200, 162, 200, 0.2);
+}
+
+/* Tekrar oyna butonunun üzerine gelince zıplaması */
+#btn-restart:hover {
+    background: var(--lila);
+    color: #000;
+    box-shadow: 0 0 30px var(--lila);
+    transform: scale(1.1) translateY(-5px); 
+}
+
+/* Modalların sol üst köşesine eklediğim dedektif emojisi süsü */
+.modal-content::before {
+    content: "🕵️";
+    position: absolute;
+    top: 10px; left: 10px;
+    opacity: 0.3;
+    font-size: 2rem;
+}
+
+/* Ekranların yavaşça silinerek kaybolmasını sağlayan sınıf */
+.fade-out { 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: opacity 0.8s ease-in-out; 
+}
+
+/* İstemediğim elementleri tamamen yok etmek için */
+.hidden { 
+    display: none !important; 
+}
+
+/* Masaüstünden küçük cihazlara (tablet/yarım ekran) geçiş ayarlarım */
+@media (max-width: 1300px) {
+    
+    /* Ekran küçülünce sayfanın aşağı kaymasına izin veriyorum */
+    body, html {
+        height: auto !important;       
+        overflow-y: auto !important;   
+        overflow-x: hidden !important; 
+    }
+
+    /* Oyun alanını alt alta gelecek şekilde ayarladım */
+    #game-container {
+        height: auto !important;       
+        overflow-y: visible !important;
+        flex-direction: column;        
+        padding-bottom: 40px;          
+    }
+    
+    /* Ana başlığı ekrana sığması için küçülttüm */
+    .glow-text {
+        font-size: 2.2rem; 
+    }
+    
+    /* Bilgi ekranındaki kutuları alt alta koydum */
+    .info-wrapper {
+        flex-direction: column; 
+        align-items: center;
+        gap: 15px;
+    }
+
+    /* Bilgi ekranı yukarıdan başlasın ki okunabilsin */
+    #info-screen {
+        align-items: flex-start !important; 
+        padding-top: 40px !important;       
+        padding-bottom: 60px !important;    
+    }
+    
+    /* Kutular ekranı tam kaplasın */
+    .info-box {
+        width: 95%; 
+        max-width: none;
+        margin-bottom: 10px;
+    }
+
+    /* Üst menü sığmazsa aşağı kaysın diye yaptım */
+    #top-bar {
+        flex-wrap: wrap; 
+        justify-content: center;
+        height: auto;
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    /* Envanter sığmayınca alt satıra geçsin */
+    #slot-container {
+        flex-wrap: wrap; 
+        justify-content: center;
+        gap: 5px;
+    }
+    
+    /* Kutuları mobilde basması kolay olsun diye biraz küçülttüm */
+    .slot {
+        width: 45px; 
+        height: 45px;
+    }
+
+    /* Üstteki butonları ortaladım */
+    #icon-container {
+        margin-right: 0;
+        width: 100%; 
+        justify-content: center;
+        margin-bottom: 5px;
+    }
+
+    /* Oyun container'ı alt alta dizilsin */
+    #game-container {
+        flex-direction: column; 
+        height: auto;
+    }
+    
+    /* Oda resmi mobilde kaydırılabilir olsun */
+    #room-container {
+        width: 100%;
+        height: 50vh; 
+        overflow-x: auto; 
+        overflow-y: hidden;
+    }
+    
+    /* Oda resminin genişliğini koruması için */
+    #scene-wrapper {
+        min-width: 800px; 
+        height: 100%;
+    }
+
+    /* Resim arka planda bozulmadan dursun */
+    #bg-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Zihin sarayı genişlesin ve üstten ayrılsın */
+    #deduction-panel {
+        width: 100%; 
+        border-left: none; 
+        border-top: 2px solid #c8a2c8; 
+        padding-bottom: 20px;
+        height: auto;
+        max-width: none !important;
+    }
+
+    /* Modalların mobilde dışarı taşmaması için daralttım */
+    .modal-content {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    /* Çizgiyi uzattım */
+    .divider {
+        width: 80% !important; 
+    }
+
+    /* Vaka dosyasındaki yazılar kaydırılabilsin */
+    .file-text {
+        max-height: 40vh;    
+        overflow-y: auto;    
+        overflow-x: hidden;  
+        padding-right: 15px; 
+        margin-bottom: 20px;
+        text-align: left;    
+        line-height: 1.7;    
+    }
+
+    /* Odaya yatayda scroll bar ekledim */
+    #room-container {
+        width: 100%;
+        height: 45vh; 
+        overflow-x: auto !important; 
+        overflow-y: hidden !important; 
+    }
+
+    /* Sahne kutusunu zorla genişlettik ki kaydırma çıksın */
+    #scene-wrapper {
+        width: 900px !important; 
+        height: 100%;
+        position: relative;
+    }
+
+    /* Odanın arkaplanı içindeki her şeyi doldursun */
+    #bg-image {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+    }
+
+    /* Mobildeki yatay kaydırma çubuğunun kalınlığı */
+    #room-container::-webkit-scrollbar {
+        height: 8px; 
+    }
+
+    /* Scroll bar'ın arka plan rengi */
+    #room-container::-webkit-scrollbar-track {
+        background: #1a0b2e; 
+    }
+
+    /* İçindeki lila kaydırma çubuğum */
+    #room-container::-webkit-scrollbar-thumb {
+        background: #c8a2c8; 
+        border-radius: 10px;
+    }
+
+    /* Scroll'un üstüne gelince parlaması */
+    #room-container::-webkit-scrollbar-thumb:hover {
+        background: #e6a8d7; 
+    }
+}
+
+/* Sadece dar ekranlı telefonlar için yaptığım ufak rötuşlar */
+@media (max-width: 480px) {
+
+    /* Çok daralırsa sayfa aşağıya kaysın diye garantiye aldım */
+    body, html {
+        height: auto !important;       
+        overflow-y: auto !important;   
+        overflow-x: hidden !important; 
+    }
+
+    /* İçerik uzadıkça oyun kutusunun boyu da uzasın */
+    #game-container {
+        height: auto !important;       
+        overflow-y: visible !important;
+        flex-direction: column;        
+        padding-bottom: 40px;          
+    }
+
+    /* Bilgi ekranını mobilde de en üstten başlatıyorum */
+    #info-screen {
+        align-items: flex-start !important; 
+        padding-top: 40px !important;       
+        padding-bottom: 60px !important;    
+    }
+
+    /* Mobildeki açılış ekranını tam ortalamak için */
+    .splash-content {
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Mobilde oyun adı çok büyük kalmasın diye kıstım */
+    .glow-text {
+        font-size: 3rem !important; 
+        line-height: 1.3;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+    }
+
+    /* Zihin sarayına hazır mısın yazısı mobilde taşmasın diye */
+    .typewriter-sub {
+        font-size: 2rem !important;
+        margin-bottom: 40px; 
+        opacity: 0.9;
+    }
+
+    /* Ana sayfadaki büyük buton mobilde güzel dursun diye küçülttüm */
+    #btn-start-game {
+        width: 95% !important;     
+        max-width: 300px;          
+        padding: 25px 20px !important; 
+        font-size: 2rem !important;  
+        border-radius: 18px;       
+        letter-spacing: 2px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), 0 0 15px rgba(200, 162, 200, 0.4); 
+    }
+
+    /* Telefondaki lila buton üstüne gelinceki dokunma efekti */
+    .lila-button:hover {
+        background: var(--lila);
+        color: black;
+        box-shadow: 0 0 30px var(--lila);
+        transform: scale(1.05);
+    }
+}

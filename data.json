@@ -1,0 +1,25 @@
+{
+  "scenes": [
+    {
+      "id": "scene_01",
+      "items": [
+        { "id": "magnifier", "icon": "🔍", "coords": {"top": "76%", "left": "7%", "w": "17%", "h": "13%"}, "text": "Sherlock: 'Üzerinde taze kül izleri var. Biri burayı yeni terk etmiş...'" },
+        { "id": "letter", "icon": "✉️", "coords": {"top": "82%", "left": "14%", "w": "23%", "h": "16%"}, "text": "Sherlock: 'Mühür henüz kurumuş. Bir şantaj mektubu olabilir mi?'" },
+        { "id": "watch", "icon": "⌚", "coords": {"top": "65%", "left": "27%", "w": "12%", "h": "15%"}, "text": "Sherlock: 'Saat tam 23:45'te durmuş. Katil zamanlamayı seviyor olmalı.'" },
+        { "id": "vial", "icon": "🧪", "coords": {"top": "58%", "left": "40%", "w": "6%", "h": "17%"}, "text": "Sherlock: 'Bu kimyasal reaktif sadece gizli mürekkepleri ortaya çıkarır.'" },
+        { "id": "pipe", "icon": "🍂", "coords": {"top": "59%", "left": "50%", "w": "11%", "h": "13%"}, "text": "Sherlock: 'Tütünün kokusu hala havada. Çok uzağa gitmiş olamazlar.'" },
+        { "id": "notebook", "icon": "📓", "coords": {"top": "73%", "left": "44%", "w": "32%", "h": "23%"}, "text": "Sherlock: 'Defterde banka güvenliğine dair teknik çizimler var...'" },
+        { "id": "hat_01", "icon": "🎩", "coords": {"top": "33%", "left": "56%", "w": "9%", "h": "14%"}, "text": "Sherlock: 'Klasik bir fötr şapka. İçindeki isim etiketi sökülmüş...'" },
+        { "id": "typewriter", "icon": "⌨️", "coords": {"top": "48%", "left": "83%", "w": "15%", "h": "22%"}, "text": "Sherlock: 'Harf baskıları şantaj mektubuyla birebir örtüşüyor.'" },
+        { "id": "usb_sticks", "icon": "💾", "coords": {"top": "80%", "left": "36%", "w": "10%", "h": "12%"}, "text": "Sherlock: 'Dijital kanıtlar asla yalan söylemez. Veriler şifrelenmiş.'" },
+        { "id": "crypto_box", "icon": "📦", "coords": {"top": "74%", "left": "76%", "w": "11%", "h": "16%"}, "text": "Sherlock: 'Karmaşık bir mekanizma. İçinde ne sakladıklarını merak ediyorum.'" }
+      ]
+    }
+  ],
+  "deductions": [
+    { "requiredItems": ["magnifier", "letter"], "resultText": "Büyüteç altındaki mektup parmak izlerini ele veriyor.","isDiscovered": false },
+    { "requiredItems": ["typewriter", "letter"], "resultText": "Mektubun bu daktilodan çıktığı kesinleşti.","isDiscovered": false },
+    { "requiredItems": ["usb_sticks", "crypto_box"], "resultText": "Bellekteki şifre anahtarı kripto kutuyu açabilir.","isDiscovered": false }
+  ],
+  "finalSolutionText": "Tebrikler! En ufak detayları bile gözden kaçırmadın. Bu karmaşık cinayeti çözmemde bana yardımcı olduğun için sana çok teşekkür ederim."
+}

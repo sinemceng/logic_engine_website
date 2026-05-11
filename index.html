@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sherlock: Logic Engine</title>
+    <link rel="icon" type="image/png" href="assets\icon_new.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 1. GİRİŞ EKRANI (Splash Screen) -->
+    
+    <div id="splash-screen">
+        <div class="splash-content">
+            <h1 class="glow-text">SHERLOCK: LOGIC ENGINE</h1>
+            <p class="typewriter-sub">Zihin sarayına girmeye hazır mısın?</p>
+            <button id="btn-start-game" class="lila-button">DAVAYA BAŞLA</button>
+        </div>
+    </div>
+
+    <!-- Bilgi Ekranı: İki ayrı kutu ve Mor Tema -->
+    <div id="info-screen" class="hidden">
+        <div class="info-wrapper">
+            <div class="info-box" id="about-sherlock">
+                <h3>🕵️ Sherlock Kimdir?</h3>
+                <p class="indent">
+                    Gerçekleri herkes görür… ama <b>anlayabilen çok azdır.</b>
+                </p>
+                <p class="indent">
+                    Sherlock Holmes, sıradan insanların gözünden kaçan detayları yakalar,
+                    parçaları birleştirir ve gerçeği ortaya çıkarır.
+                </p>
+                <p class="indent">
+                    Bu vakada onun zekâsı var… ama <b>gözleri sensin.</b>
+                </p>
+                <div class="avatar-container">
+                    <img src="assets\sherlock.png" alt="Sherlock Holmes" class="sherlock-avatar">
+                </div>
+            </div>
+            <div class="info-box" id="game-rules">
+                <h3>📜 Operasyon Rehberi</h3>
+                    <ul style="list-style-type: none; padding: 0; line-height: 1.8;">
+                        <li>🔍 <b>Gözlemle:</b> Odadaki gizli kanıtları farenle arayıp bul.</li>
+                        <li>🎒 <b>Topla:</b> Kanıtlara tıklayarak 10 ipucunun <b>tamamını</b> envanterine aktar.</li>
+                        <li>📜 <b>İncele:</b> Vaka dosyasına (📜) göz atarak bağlantıları çöz.</li>
+                        <li>🧠 <b>Birleştir:</b> <b>Tüm kanıtları topladıktan sonra</b>, mantıklı iki ipucunu seçip sağdan birleştir.</li>
+                        <li>💡 <b>İpucu:</b> Kanıtları bulmakta zorlanırsan <b>'Space'</b> (Boşluk) tuşuna bas.</li>
+                    </ul>
+            </div>
+            <button id="back-to-menu-btn" class="lila-button";>ANLADIM</button>
+        </div>
+    </div>
+
+    <nav id="top-bar" style="display: none;">
+        <div id="icon-container" style="display: flex; gap: 10px; margin-right: 20px;">
+            <div id="help-icon" title="Kuralları Hatırla">❓</div>
+            <div id="story-icon" title="Vaka Dosyasını Oku">📜</div>
+        </div>
+        
+        <div id="slot-container">
+            <div class="slot" id="slot-0"></div>
+            <div class="slot" id="slot-1"></div>
+            <div class="slot" id="slot-2"></div>
+            <div class="slot" id="slot-3"></div>
+            <div class="slot" id="slot-4"></div>
+            <div class="slot" id="slot-5"></div>
+            <div class="slot" id="slot-6"></div>
+            <div class="slot" id="slot-7"></div>
+            <div class="slot" id="slot-8"></div>
+            <div class="slot" id="slot-9"></div>
+        </div>
+        
+        <div id="progress-container">
+            <span id="clue-count">0/10</span>
+        </div>
+        <button id="btn-mute" class="mute-btn">🔊</button>
+        <img src="assets\sherlock.png" id="top-bar-sherlock" alt="Sherlock">
+    </nav>
+
+    <!-- 3. ANA OYUN ALANI -->
+    <div id="game-container">
+        <main id="room-container">
+            <div id="scene-wrapper">
+                <img src="assets/room_bg.png" id="bg-image" alt="Suç Mahalli">
+                <div id="object-layer"></div>
+                <div id="spotlight-layer"></div> 
+            </div>
+        </main>
+
+        <aside id="deduction-panel">
+            <h2>Zihin Sarayı</h2>
+            <div id="deduction-log">
+                <p id="typewriter-text"></p>
+                <ul id="deductions-list"></ul>
+            </div>
+            
+            <button id="btn-combine">İpuçlarını Birleştir</button>
+            
+            <button id="btn-deduce" disabled>Vakayı Çöz</button>
+        </aside>
+    </div>
+    <div id="game-toast" class="hidden">Burada önemli bir şey yok...</div>
+
+    <!-- 4. FİNAL TEŞEKKÜR MODALI -->
+    <div id="solution-modal" class="modal-overlay">
+    <div class="modal-content animate-pop"> <!-- Animasyon sınıfı eklendi -->
+        <h2> VAKA  ÇÖZÜLDÜ</h2>
+        <div id="final-story"></div>
+        <div class="divider" style="height: 2px; background: var(--lila); width: 50%; margin: 20px auto; opacity: 0.3;"></div>
+        <button onclick="location.reload()" id="btn-restart" style="display: none;">Oyuna Tekrar Başla</button>
+    </div>
+    </div>
+    <div id="story-modal" class="modal-overlay hidden">
+        <div class="modal-content file-theme">
+            <h2 class="file-title">📁 VAKA DOSYASI</h2>
+            
+            <div id="scenario-text" class="file-text">
+                <p>Kurban gece yarısı odasında ölü bulundu. İlk bakışta sıradan görünse de detaylar yalan söylemez:</p>
+                
+                <ul>
+                    <li>Masadaki mektup uzaklardan gelmemiş, odadaki makineden çıkmış olmalı. Görünmez izler için onu yakından incelemek şart.</li>
+                    <li>Kurbanın asıl sırrı o meşhur kripto kutusunda yatıyor. Açmak için özel bir dijital bellek gerekiyor.</li>
+                </ul>
+                
+                <p class="file-directive">🕵️ Şimdi kanıtları topla ve mantıklı olanları birleştir.</p>
+            </div>
+            <button id="btn-close-story" class="lila-button modal-btn">OYUNA DÖN</button>
+        </div>
+    </div>
+    
+    <script src="engine.js"></script>
+</body>
+</html>
