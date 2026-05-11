@@ -27,6 +27,17 @@ Proje, masaüstü kilitli ekran yapısından mobil cihazlara kadar her çözün�
 * **Recursive Typewriter:** Sherlock'un analizlerini ekrana harf harf yazdıran, özyinelemeli (recursive) çalışan bir daktilo algoritması kullanılmıştır.
 * **İpucu Algoritması:** 'Space' tuşu ile tetiklenen ve DOM üzerindeki henüz toplanmamış düğümleri (nodes) geçici olarak vurgulayan yardımcı bir sistem entegre edilmiştir.
 
+# Bazı Görseller
+- Oyun kuralları ekranı
+<img width="1919" height="900" alt="image" src="https://github.com/user-attachments/assets/1b5c17d7-c4ca-4ac1-b02b-10f35a960b1a" />
+
+- Vaka dosyası
+<img width="1918" height="891" alt="image" src="https://github.com/user-attachments/assets/0d492faa-91b4-4420-8ee9-ddf229e6843c" />
+
+- Oyun ekranı
+<img width="1915" height="896" alt="image" src="https://github.com/user-attachments/assets/d0d1db8b-f4a9-4e32-8e7c-31fe53f1000f" />
+
+
 ## Kurulum
 1. Repoyu yerel makinenize klonlayın.
 2. Ana dizindeki `index.html` dosyasını bir yerel sunucu (örneğin VS Code Live Server) üzerinden çalıştırın.
