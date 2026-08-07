@@ -1,5 +1,8 @@
 # Sherlock Holmes: Logic Engine
 
+- Oyun ekranı
+<img width="1915" height="896" alt="image" src="https://github.com/user-attachments/assets/d0d1db8b-f4a9-4e32-8e7c-31fe53f1000f" />
+
 Bu proje; klasik dedektiflik oyun mekaniklerini, modern web teknolojileri ve dinamik bir mantık mimarisiyle birleştiren interaktif bir senaryo yönetim sistemidir. Yazılımın temel amacı, statik bir oyun deneyimi yerine, veriler arası ilişki kurabilen ve kullanıcı kararlarına göre şekillenen bir "Zihin Sarayı" simülasyonu sunmaktır.
 
 ### Websitemize aşağıdaki linkten ulaşabilirsiniz
@@ -37,8 +40,6 @@ Proje, masaüstü kilitli ekran yapısından mobil cihazlara kadar her çözün�
 - Vaka dosyası
 <img width="1918" height="891" alt="image" src="https://github.com/user-attachments/assets/0d492faa-91b4-4420-8ee9-ddf229e6843c" />
 
-- Oyun ekranı
-<img width="1915" height="896" alt="image" src="https://github.com/user-attachments/assets/d0d1db8b-f4a9-4e32-8e7c-31fe53f1000f" />
 
 
 ## Kurulum
